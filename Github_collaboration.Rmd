@@ -14,16 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(fivethirtyeight)
 ```
 
-```{r}
-drug_use %>% 
-  ggplot() + 
-  geom_jitter(aes(x = age, y = ))
-```
-
-
-```{r}
-
-```
 
 ```{r}
 bad_drivers %>% 
