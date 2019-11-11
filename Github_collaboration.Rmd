@@ -10,17 +10,19 @@ date: "11/11/2019"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, message = FALSE}
 library(fivethirtyeight)
-library(dplyr)
-library(ggplot2)
-data("drug_use")
 ```
 
 ```{r}
 drug_use %>% 
   ggplot() + 
-  geom_col(aes(x = age, y = tranquilizer_use))
+  geom_jitter(aes(x = age, y = ))
+```
+
+
+```{r}
+
 ```
 
 ```{r}
