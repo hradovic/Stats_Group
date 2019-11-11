@@ -1,0 +1,22 @@
+---
+title: "GitHub for Collaboration"
+author: "Helen"
+date: "11/11/2019"
+  output: html_document
+   keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(fivethirtyeight)
+```
+
+```{r}
+drug_use %>% 
+  ggplot() + 
+  geom_jitter(aes(x = age, y = ))
+```
+
