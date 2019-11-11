@@ -23,3 +23,15 @@ drug_use %>%
   geom_col(aes(x = age, y = tranquilizer_use))
 ```
 
+```{r}
+bad_drivers %>% 
+  ggplot() +
+  geom_jitter(aes(x = perc_alcohol, y = insurance_premiums))
+```
+
+```{r}
+bad_drivers %>% 
+  ggplot() + 
+  geom_jitter(aes(x = perc_alcohol, y = losses))
+```
+
