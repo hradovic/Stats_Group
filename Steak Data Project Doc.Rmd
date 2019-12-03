@@ -21,15 +21,32 @@ Predictor Variables: Region of US, Household Income, Gambling, Age
 Interaction Effects Between: 
 Age + Income
 Gambling + Income
+Region + Income
+Region + Age
 
 
 Question: Which factors most influence the type of steak that people in the US consume?
 
 
+```{r}
+Age + Income
+```
+
+
+
+```{r}
+Gambling + Income
+```
 
 
 
 
+```{r}
+Region + Income
+```
 
 
+```{r}
+Region + Age
+```
 
