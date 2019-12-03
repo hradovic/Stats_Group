@@ -1,0 +1,35 @@
+---
+title: "Steak Data Project Doc"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = FALSE}
+library(tidyverse)
+library(fivethirtyeight)
+library(dplyr)
+```
+
+
+Response Variable: steak_prep
+
+Predictor Variables: Region of US, Household Income, Gambling, Age
+
+Interaction Effects Between: 
+Age + Income
+Gambling + Income
+
+
+Question: Which factors most influence the type of steak that people in the US consume?
+
+
+
+
+
+
+
+
+
