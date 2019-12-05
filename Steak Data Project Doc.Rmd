@@ -12,6 +12,7 @@ library(tidyverse)
 library(fivethirtyeight)
 library(dplyr)
 library(moderndive)
+library(broom)
 ```
 
 ```{r}
@@ -48,15 +49,14 @@ lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
 
 
 ```{r}
-lm_incomegamble <- lm(steak_prep ~ hhold_income + gamble, data = steak_survey)
+glm_incomegamble <- glm(steak_prep_rare ~ hhold_income + gamble, data = steak_survey, family = binomial(link = "logit"))
 
 
+tidy(glm_incomegamble)
 
-get_regression_table(lm_incomegamble)
-
-lm_incomegamble %>%
+glm_incomegamble %>%
   ggplot()+
-  geom_point(mapping = aes(x = hhold_income, y = steak_prep))
+  geom_count(mapping = aes(x = hhold_income, y = steak_prep_rare))
 ```
 
 
