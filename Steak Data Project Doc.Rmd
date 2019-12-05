@@ -12,6 +12,7 @@ library(tidyverse)
 library(fivethirtyeight)
 library(dplyr)
 library(moderndive)
+library(broom)
 ```
 
 ```{r}
