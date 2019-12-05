@@ -36,7 +36,10 @@ Age + Income
 
 
 ```{r}
-Gambling + Income
+glm_incomegamble <- glm(steak_prep ~ gamble + hhold_income, data = steak_survey)
+
+get_regression_table(lm_incomegamble)
+
 ```
 
 
