@@ -14,6 +14,18 @@ library(dplyr)
 library(moderndive)
 ```
 
+```{r}
+steak_survey <-
+  steak_survey %>% 
+  mutate(age = fct_relevel(as.character(age), "> 60", after = Inf),
+         hhold_income = fct_relevel(as.character(hhold_income),
+                                     "$0 - $24,999",
+                                     "$25,000 - $49,999",
+                                     "$50,000 - $99,999"),
+         steak_prep_rare = ifelse(steak_prep %in% c("Rare", "Medium rare"),
+                                    1, 0)) %>% 
+  drop_na(steak_prep)
+```
 
 Response Variable: steak_prep
 
@@ -30,7 +42,7 @@ Question: Which factors most influence the type of steak that people in the US c
 
 
 ```{r}
-Age + Income
+lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
 ```
 
 
@@ -43,15 +55,20 @@ get_regression_table(lm_incomegamble)
 ```
 
 
-
-
 ```{r}
-Region + Income
+lm_regincome <- lm(steak_prep ~ region + hhold_income, data = steak_survey)
+get_regression_table(lm_regincome)
 ```
 
 
 ```{r}
 lm_regage <- lm(steak_prep ~ region + age, data = steak_survey)
 get_regression_table(lm_regage)
+```
+
+```{r}
+lm_regage %>% 
+  ggplot(aes(x = age, y = steak_prep, color = region)) +
+  geom_jitter()
 ```
 
