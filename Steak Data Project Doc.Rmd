@@ -62,38 +62,33 @@ steak_survey %>%
 
 
 ```{r}
-lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
+glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_ageincome)
 ```
 
 
 
 ```{r}
 glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-
 tidy(glm_incomegamble)
-
+```
+```{r}
 glm_incomegamble %>%
   ggplot() +
   geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income), position = "fill")+
   facet_wrap(~gamble)
-
 ```
 
 
 ```{r}
-lm_regincome <- lm(steak_prep ~ region + hhold_income, data = steak_survey)
-get_regression_table(lm_regincome)
+glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_regincome)
 ```
 
 
 ```{r}
-lm_regage <- lm(steak_prep ~ region + age, data = steak_survey)
-get_regression_table(lm_regage)
+glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey)
+tidy(glm_regage)
 ```
 
-```{r}
-lm_regage %>% 
-  ggplot(aes(x = age, y = steak_prep, color = region)) +
-  geom_jitter()
-```
 
