@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(fivethirtyeight)
 library(dplyr)
+library(moderndive)
 ```
 
 
@@ -47,6 +48,7 @@ Region + Income
 
 
 ```{r}
-Region + Age
+lm_regage <- lm(steak_prep ~ region + age, data = steak_survey)
+get_regression_table(lm_regage)
 ```
 
