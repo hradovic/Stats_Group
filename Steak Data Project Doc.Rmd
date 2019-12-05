@@ -28,6 +28,8 @@ steak_survey <-
   drop_na(steak_prep)
 ```
 
+#steak_prep details
+
 Response Variable: steak_prep
 
 Predictor Variables: Region of US, Household Income, Gambling, Age
@@ -41,7 +43,7 @@ Region + Age
 
 Question: Which factors most influence people to choose rare or medium rare steak over medium and well-done?
 
-Here are some exploratory graphs:
+# Here are some exploratory graphs:
 
 ```{r}
 steak_survey %>% 
@@ -60,6 +62,7 @@ steak_survey %>%
 ```
 
 
+# Logistic Regression Models
 
 ```{r}
 lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
