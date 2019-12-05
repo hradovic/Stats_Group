@@ -12,8 +12,6 @@ library(tidyverse)
 library(fivethirtyeight)
 library(dplyr)
 library(moderndive)
-library(broom)
-library(ggmosaic)
 ```
 
 ```{r}
@@ -40,7 +38,26 @@ Region + Income
 Region + Age
 
 
-Question: Which factors most influence the type of steak that people in the US consume?
+Question: Which factors most influence people to choose rare or medium rare steak over medium and well-done?
+
+Here are some exploratory graphs:
+
+```{r}
+steak_survey %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare, fill = steak_prep)) +
+  facet_wrap(~region) +
+  theme_minimal()
+```
+
+```{r}
+steak_survey %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare, fill = steak_prep_rare), )+
+  facet_wrap(~hhold_income) +
+  theme_minimal()
+```
+
 
 
 ```{r}
@@ -50,15 +67,10 @@ lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
 
 
 ```{r}
-glm_incomegamble <- glm(steak_prep_rare ~ hhold_income + gamble, data = steak_survey, family = binomial(link = "logit"))
+glm_incomegamble <- glm(steak_prep ~ gamble + hhold_income, data = steak_survey)
 
+summary(glm_incomegamble)
 
-tidy(glm_incomegamble)
-
-glm_incomegamble %>%
-  ggplot()+
-  geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income),position = "fill")+
-  facet_wrap(~gamble)
 ```
 
 
