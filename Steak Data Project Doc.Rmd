@@ -67,9 +67,14 @@ lm_ageincome <- lm(steak_prep ~ age + hhold_income, data = steak_survey)
 
 
 ```{r}
-glm_incomegamble <- glm(steak_prep ~ gamble + hhold_income, data = steak_survey)
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 
-summary(glm_incomegamble)
+tidy(glm_incomegamble)
+
+glm_incomegamble %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income), position = "fill")+
+  facet_wrap(~gamble)
 
 ```
 
