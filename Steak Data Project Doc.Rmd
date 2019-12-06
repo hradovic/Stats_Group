@@ -123,12 +123,7 @@ glm_regage %>%
   geom_jitter()
 ```
 
-<<<<<<< HEAD
-=======
 
-
-=======
->>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
 # Regression Tables and Analysis
 
 
@@ -168,8 +163,7 @@ tidy(glm_regage)%>%
 
 ```
 
->>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
-```
+
 
 
 
