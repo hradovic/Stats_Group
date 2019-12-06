@@ -28,6 +28,12 @@ steak_survey <-
   drop_na(steak_prep)
 ```
 
+# Description of Data
+
+Steak_survey is a survey of 432 steak eaters in the US. It originally came from a surveymonkey audience poll, an online polling company. 
+
+In this data, we are going to be looking for influences that lead to type of steak consumed. We're interested in looking at this data because we want to see how big a role demographic factors play in the type of food consumed in the US, and if there is more status associated with some methods of cooking steak versus others. Also, we want to see if more risk prone people are more willing to eat rare cooked steak, as this carries the potential for food borne illnesses. 
+
 Response Variable: steak_prep
 
 Predictor Variables: Region of US, Household Income, Gambling, Age
@@ -41,8 +47,18 @@ Region + Age
 
 Question: Which factors most influence people to choose rare or medium rare steak over medium and well-done?
 
-Here are some exploratory graphs:
+# Exploratory graphs and general overview of data:
 
+
+The following graph gives an overview of how many people eat each type of steak in the US. 
+```{r}
+steak_survey %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep, fill = steak_prep) )
+```
+
+
+This graph shows the types of steaks consumed by location. From these graphs, there doesn't appear to be a clear pattern in terms of geographic region. 
 ```{r}
 steak_survey %>% 
   ggplot() + 
@@ -51,15 +67,18 @@ steak_survey %>%
   theme_minimal()
 ```
 
+
+The following graph shows the relationship between type of steak and income. Again, there isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, mediumrare is by far the most popular category in most of the income brackets... except for the wealthiest group which comes as a suprise to us and counters our original hypothesis. 
 ```{r}
 steak_survey %>% 
   ggplot() + 
-  geom_bar(aes(x = steak_prep_rare, fill = steak_prep_rare), )+
+  geom_bar(aes(x = steak_prep_rare, fill = steak_prep), )+
   facet_wrap(~hhold_income) +
   theme_minimal()
 ```
 
 
+# Logistic Regression Models
 
 ```{r}
 glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
