@@ -126,22 +126,6 @@ glm_regage %>%
   geom_jitter()
 ```
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 =======
@@ -178,8 +162,6 @@ glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binom
 tidy(glm_regage)%>%
   mutate(exp.est = exp(estimate))%>%
   select(term, exp.est)
-
-
 
 
 ```
