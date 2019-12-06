@@ -102,3 +102,6 @@ The predicted odds that a person from the east north central region from age 18-
 glm_regage %>% 
   ggplot(aes(x = age, y = steak_prep, color = region)) +
   geom_jitter()
+```
+
+
