@@ -81,18 +81,14 @@ steak_survey %>%
 # Logistic Regression Models
 
 ```{r}
-
-
 glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 tidy(glm_ageincome)
-
 ```
 
 From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{2.93104} = 18.74712$, or about a 95% probability. 
 
 
 ```{r}
-
 glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 tidy(glm_incomegamble)
 ```
@@ -104,31 +100,18 @@ glm_incomegamble %>%
   ggplot() +
   geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income), position = "fill")+
   facet_wrap(~gamble)
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
 ```
 
 
 ```{r}
-<<<<<<< HEAD
-glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-=======
 glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
 tidy(glm_regincome)
 ```
 
 The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{-0.5599075}= 0.5712619$, or about a 36% probability.
 
 ```{r}
-<<<<<<< HEAD
-glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
-=======
 glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey)
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
 tidy(glm_regage)
 ```
 
@@ -140,21 +123,16 @@ glm_regage %>%
   geom_jitter()
 ```
 
-<<<<<<< HEAD
-=======
 
 # Regression Tables and Analysis
 
 
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
 ```{r}
 augment(glm_ageincome)
 augment(glm_incomegamble)
 augment(glm_regincome)
 augment(glm_regage)
 
-<<<<<<< HEAD
-=======
 glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
   
 tidy(glm_ageincome)%>%
@@ -183,13 +161,10 @@ tidy(glm_regage)%>%
   select(term, exp.est)
 
 
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
 ```
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -197,4 +172,3 @@ tidy(glm_regage)%>%
 
 
 
->>>>>>> 4dab97efb9f9ada9e93732abca14fb1aa51939af
