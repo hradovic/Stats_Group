@@ -108,7 +108,7 @@ glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_surve
 
 tidy(glm_regincome)
 ```
-The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{3.84791853}= 46.89535$, or about a 98% probability.
+The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{-0.55990752}=0.5712619$, or about a 36% probability.
 
 
 ```{r}
@@ -166,7 +166,22 @@ tidy(glm_regage)%>%
 
 
 
+
 ![Steak!](https://www.tasteofhome.com/wp-content/uploads/2019/01/medium-rare-steak-shutterstock_706040446-800x450.jpg)
+
+
+# Hypothesis Testing
+```{r}
+completeFun <- function(data, desiredCols) {  #This function removes rows of data that have NA in given columns
+  completeVec <- complete.cases(data[, desiredCols])
+  return(data[completeVec, ])
+}
+
+steak_survey_ageincome_NArm <- completeFun(steak_survey, c("age", "hhold_income"))
+anova(glm(steak_prep_rare ~ 1, data = steak_survey_ageincome_NArm, family = binomial(link = "logit")), glm_ageincome) %>%
+  tidy()
+```
+
 
 # Conclusion
 
