@@ -80,18 +80,8 @@ steak_survey %>%
 
 # Logistic Regression Models
 
-```{r}
-glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_ageincome)
-```
-
 From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{2.93104} = 18.74712$, or about a 95% probability. 
 
-
-```{r}
-glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_incomegamble)
-```
 
 The predicted odds that a person who does not gamble and has income under \$25000 prefers rare steak is $e^{-0.4828039} = 0.617$, or about a 38% probability.
 
@@ -103,17 +93,7 @@ glm_incomegamble %>%
 ```
 
 
-```{r}
-glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_regincome)
-```
-
 The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{-0.5599075}= 0.5712619$, or about a 36% probability.
-
-```{r}
-glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey)
-tidy(glm_regage)
-```
 
 The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{0.340476}=1.405617$, or about a 58% probability.
 
@@ -165,10 +145,7 @@ tidy(glm_regage)%>%
 
 
 
-
-
-
-
+![Steak!](https://www.tasteofhome.com/wp-content/uploads/2019/01/medium-rare-steak-shutterstock_706040446-800x450.jpg)
 
 
 
