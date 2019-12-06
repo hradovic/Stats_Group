@@ -121,3 +121,34 @@ The predicted odds that a person from the east north central region from age 18-
 glm_regage %>% 
   ggplot(aes(x = age, y = steak_prep, color = region)) +
   geom_jitter()
+```
+
+# Regression Tables and Analysis
+```{r}
+augment(glm_ageincome)
+augment(glm_incomegamble)
+augment(glm_regincome)
+augment(glm_regage)
+
+glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
+  tidy(glm_ageincome)
+
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_incomegamble)
+
+glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_regincome)
+
+glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_regage)
+
+
+```
+
+
+
+
+
+
+
+
