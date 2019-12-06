@@ -83,6 +83,8 @@ steak_survey %>%
 ```{r}
 glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 tidy(glm_ageincome)
+
+
 ```
 
 From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{2.93104} = 18.74712$, or about a 95% probability. 
@@ -122,5 +124,29 @@ glm_regage %>%
   ggplot(aes(x = age, y = steak_prep, color = region)) +
   geom_jitter()
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
