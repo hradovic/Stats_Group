@@ -49,8 +49,9 @@ Region + Age
 
 Question: Which factors most influence people to choose rare or medium rare steak over medium and well-done?
 
-# Exploratory graphs and general overview of data:
+Hypothesis: We hypothesize that wealthier people are more likely to consume rare steak than poorer people because rare steak is seen as a status symbol and is offered in a lot of higher-class restaurants. Additionally, we hypothesize that people who are more prone to risk-taking will be more likely to consume rare steak. 
 
+# Exploratory graphs and general overview of data:
 
 The following graph gives an overview of how many people eat each type of steak in the US. 
 ```{r}
@@ -60,7 +61,7 @@ steak_survey %>%
 ```
 
 
-This graph shows the types of steaks consumed by location. From these graphs, there doesn't appear to be a clear pattern in terms of geographic region. 
+This following graph shows the types of steaks consumed by location. From these graphs, there doesn't appear to be a clear pattern in terms of geographic region. 
 ```{r}
 steak_survey %>% 
   ggplot() + 
@@ -70,7 +71,7 @@ steak_survey %>%
 ```
 
 
-The following graph shows the relationship between type of steak and income. Again, there isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, mediumrare is by far the most popular category in most of the income brackets... except for the wealthiest group which comes as a suprise to us and counters our original hypothesis. 
+The following graph shows the relationship between type of steak and income. Again, there isn't a super clear pattern here. Almost all income brackets prefer medium-well over rare and medium-rare. However, medium-rare is by far the most popular category in most of the income brackets... except for the wealthiest group which comes as a surprise to us and counters our original hypothesis. 
 ```{r}
 steak_survey %>% 
   ggplot() + 
@@ -80,24 +81,42 @@ steak_survey %>%
 ```
 
 
+
+
+
+
 # Logistic Regression Models
 
-From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{2.93104} = 18.74712$, or about a 95% probability. 
+```{r}
+glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit")) 
+
+tidy(glm_ageincome)
+```
+From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{-6.418537e-01} = 0.5263159$, or about a 34% probability. 
 
 
+```{r}
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+
+tidy(glm_incomegamble)
+
+```
 The predicted odds that a person who does not gamble and has income under \$25000 prefers rare steak is $e^{-0.4828039} = 0.617$, or about a 38% probability.
 
 ```{r}
-glm_incomegamble %>%
-  ggplot() +
-  geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income), position = "fill")+
-  facet_wrap(~gamble)
+glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+
+tidy(glm_regincome)
 ```
+The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{3.84791853}= 46.89535$, or about a 98% probability.
 
 
-The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{-0.5599075}= 0.5712619$, or about a 36% probability.
+```{r}
+glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey, family = binomial(link = "logit"))
 
-The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{0.340476}=1.405617$, or about a 58% probability.
+tidy(glm_regage)
+```
+The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{-0.6588634}=0.5174391$, or about a 34% probability.
 
 ```{r}
 glm_regage %>% 
@@ -129,14 +148,14 @@ tidy(glm_incomegamble)%>%
   select(term, exp.est)
 
 
-glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 
 tidy(glm_regincome)%>%
   mutate(exp.est = exp(estimate))%>%
   select(term, exp.est)
 
 
-glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
+glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey, family = binomial(link = "logit"))
 
 tidy(glm_regage)%>%
   mutate(exp.est = exp(estimate))%>%
@@ -150,5 +169,18 @@ tidy(glm_regage)%>%
 ![Steak!](https://www.tasteofhome.com/wp-content/uploads/2019/01/medium-rare-steak-shutterstock_706040446-800x450.jpg)
 
 # Conclusion
+
+
+
+
+
+
+Next Steps:
+
+
+
+
+
+
 
 
