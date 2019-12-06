@@ -123,6 +123,12 @@ glm_regage %>%
   geom_jitter()
 ```
 
+<<<<<<< HEAD
+=======
+
+
+=======
+>>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
 # Regression Tables and Analysis
 ```{r}
 
@@ -139,10 +145,18 @@ tidy(glm_regincome)
 glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
 tidy(glm_regage)
 
+<<<<<<< HEAD
 augment(glm_ageincome)
 augment(glm_incomegamble)
 augment(glm_regincome)
 augment(glm_regage)
+=======
+tidy(glm_regage)%>%
+  mutate(exp.est = exp(estimate))%>%
+  select(term, exp.est)
+
+
+>>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
 ```
 
 
