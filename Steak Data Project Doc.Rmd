@@ -115,6 +115,9 @@ The predicted odds that a person from the east north central region with income 
 ```{r}
 glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey)
 tidy(glm_regage)
+
+glm_regage
+  mutate(exp.est = exp(estimate))
 ```
 
 The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{0.340476}=1.405617$, or about a 58% probability.
