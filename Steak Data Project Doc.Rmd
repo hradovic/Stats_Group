@@ -83,8 +83,6 @@ steak_survey %>%
 ```{r}
 glm_ageincome <- glm(steak_prep ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 tidy(glm_ageincome)
-
-
 ```
 
 From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{2.93104} = 18.74712$, or about a 95% probability. 
@@ -115,7 +113,6 @@ The predicted odds that a person from the east north central region with income 
 ```{r}
 glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey)
 tidy(glm_regage)
-
 ```
 
 The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{0.340476}=1.405617$, or about a 58% probability.
@@ -126,64 +123,27 @@ glm_regage %>%
   geom_jitter()
 ```
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
 # Regression Tables and Analysis
 ```{r}
+
+
+glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
+  tidy(glm_ageincome)
+
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_incomegamble)
+
+glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_regincome)
+
+glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
+tidy(glm_regage)
+
 augment(glm_ageincome)
 augment(glm_incomegamble)
 augment(glm_regincome)
 augment(glm_regage)
-
-glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
-  
-tidy(glm_ageincome)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-  
-glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_incomegamble)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_regincome)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_regage)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-
-
 ```
->>>>>>> 185c1da4ed540cac581af11864228d29549f1dda
 
 
 
