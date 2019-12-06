@@ -130,31 +130,43 @@ glm_regage %>%
 =======
 >>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
 # Regression Tables and Analysis
+
+
 ```{r}
-
-
-glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
-  tidy(glm_ageincome)
-
-glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_incomegamble)
-
-glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_regincome)
-
-glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
-tidy(glm_regage)
-
-<<<<<<< HEAD
 augment(glm_ageincome)
 augment(glm_incomegamble)
 augment(glm_regincome)
 augment(glm_regage)
-=======
+
+glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
+  
+tidy(glm_ageincome)%>%
+  mutate(exp.est = exp(estimate))%>%
+  select(term, exp.est)
+
+  
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+
+tidy(glm_incomegamble)%>%
+  mutate(exp.est = exp(estimate))%>%
+  select(term, exp.est)
+
+
+glm_regincome <- glm(steak_prep ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+
+tidy(glm_regincome)%>%
+  mutate(exp.est = exp(estimate))%>%
+  select(term, exp.est)
+
+
+glm_regage <- glm(steak_prep ~ region + age, data = steak_survey, family = binomial(link = "logit"))
+
 tidy(glm_regage)%>%
   mutate(exp.est = exp(estimate))%>%
   select(term, exp.est)
 
+
+```
 
 >>>>>>> ec2bc6e5667d25e283cda12fc290fa030ae2cb6d
 ```
