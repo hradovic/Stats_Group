@@ -133,7 +133,7 @@ augment(glm_incomegamble)
 augment(glm_regincome)
 augment(glm_regage)
 
-glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, family = binomial(link = "logit")) 
+glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit")) 
   
 tidy(glm_ageincome)%>%
   mutate(exp.est = exp(estimate))%>%
