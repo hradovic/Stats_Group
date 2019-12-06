@@ -12,6 +12,7 @@ library(tidyverse)
 library(fivethirtyeight)
 library(dplyr)
 library(moderndive)
+library(broom)
 ```
 
 ```{r}
@@ -68,9 +69,16 @@ glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income,data = steak_survey, f
 
 
 ```{r}
-glm_incomegamble <- glm(steak_prep ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+
+glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 
 tidy(glm_incomegamble)
+
+glm_incomegamble %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = steak_prep_rare, fill = hhold_income), position = "fill")+
+  facet_wrap(~gamble)
+
 
 ```
 
@@ -91,4 +99,14 @@ glm_regage %>%
   ggplot(aes(x = age, y = steak_prep, color = region)) +
   geom_jitter()
 ```
+
+```{r}
+augment(glm_ageincome)
+augment(glm_incomegamble)
+augment(glm_regincome)
+augment(glm_regage)
+
+```
+
+
 
