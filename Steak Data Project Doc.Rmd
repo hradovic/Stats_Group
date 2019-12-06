@@ -30,6 +30,8 @@ steak_survey <-
 
 # Description of Data
 
+![bessy!](https://www.plantbasednews.org/.image/t_share/MTY1NTk1NTY0Nzk5NTAyMTE3/image-placeholder-title.jpg)
+
 Steak_survey is a survey of 432 steak eaters in the US. It originally came from a surveymonkey audience poll, an online polling company. 
 
 In this data, we are going to be looking for influences that lead to type of steak consumed. We're interested in looking at this data because we want to see how big a role demographic factors play in the type of food consumed in the US, and if there is more status associated with some methods of cooking steak versus others. Also, we want to see if more risk prone people are more willing to eat rare cooked steak, as this carries the potential for food borne illnesses. 
