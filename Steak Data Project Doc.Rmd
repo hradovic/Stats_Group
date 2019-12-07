@@ -40,9 +40,9 @@ Response Variable: steak_prep
 
 Predictor Variables: Region of US, Household Income, Gambling, Age
 
-Interaction Effects Between: 
-Age + Income
-Gambling + Income
+Models based on: 
+Income
+Gambling
 Region + Income
 Region + Age
 
@@ -87,84 +87,50 @@ steak_survey %>%
 
 # Logistic Regression Models
 
-```{r}
-glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit")) 
-
-tidy(glm_ageincome)
-```
-From this model, the predicted odds that a person age 18-29 with income under \$25000 prefers rare steak is $e^{-6.418537e-01} = 0.5263159$, or about a 34% probability. 
-
+**Model based on income**
 
 ```{r}
-glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
+glm_income <- glm(steak_prep_rare ~ hhold_income, data = steak_survey, family = binomial(link = "logit")) 
 
-tidy(glm_incomegamble)
-
+tidy(glm_income) %>%
+  mutate(exp.est = exp(estimate))
 ```
-The predicted odds that a person who does not gamble and has income under \$25000 prefers rare steak is $e^{-0.4828039} = 0.617$, or about a 38% probability.
+From this model, the predicted odds that a person age 18-29 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the model predicts that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
+
+**Model based on gambling**
+```{r}
+glm_gamble <- glm(steak_prep_rare ~ gamble, data = steak_survey, family = binomial(link = "logit"))
+
+tidy(glm_gamble)%>%
+mutate(exp.est = exp(estimate))
+```
+The predicted odds that a person who does not gamble prefers rare steak is $e^{-0.19782574}=0.8205128$, or about a 45% probability. If the person gambles, these odds are multiplied by 0.9214939. This implies that a person who enjoys gambling actually has lower odds of preferring rare steak.
+
+$H_0: \beta_{gambleTRUE} = 0$
+
+$H_a: \beta_{gambleTRUE} \neq 0$
+
+The p value for gambleTRUE is 0.6742880. This indicates that, assuming the null hypothesis were true and gambling had no effect on steak preference, there would be a 67.4% chance of getting a coefficient as extreme as -0.08175911. This p value is much larger than 0.05, so we cannot reject the null hypothesis.
+
+**Model Based on region and income**
 
 ```{r}
 glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
 
-tidy(glm_regincome)
+tidy(glm_regincome) %>%
+  mutate(exp.est = (exp(estimate)))
 ```
-The predicted odds that a person from the east north central region with income under \$25000 prefers rare steak is $e^{-0.55990752}=0.5712619$, or about a 36% probability.
+The predicted odds that a person from the east north central region with income under \$25,000 prefers rare steak is $e^{-0.55990752}=0.5712619$, or about a 36% probability. The mountain region is the least likely to prefer steak, at only an 18.56% probability according to the model. Although we are now accounting for region, the effect of income on the odds is very similar to how it was in the model that used only income.
 
+**Model based on region and age**
 
 ```{r}
 glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey, family = binomial(link = "logit"))
 
-tidy(glm_regage)
+tidy(glm_regage) %>%
+  mutate(exp.est = exp(estimate))
 ```
-The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{-0.6588634}=0.5174391$, or about a 34% probability.
-
-```{r}
-glm_regage %>% 
-  ggplot(aes(x = age, y = steak_prep, color = region)) +
-  geom_jitter()
-```
-
-
-# Regression Tables and Analysis
-
-
-```{r}
-augment(glm_ageincome)
-augment(glm_incomegamble)
-augment(glm_regincome)
-augment(glm_regage)
-
-glm_ageincome <- glm(steak_prep_rare ~ age + hhold_income, data = steak_survey, family = binomial(link = "logit")) 
-  
-tidy(glm_ageincome)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-  
-glm_incomegamble <- glm(steak_prep_rare ~ gamble + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_incomegamble)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-glm_regincome <- glm(steak_prep_rare ~ region + hhold_income, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_regincome)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-glm_regage <- glm(steak_prep_rare ~ region + age, data = steak_survey, family = binomial(link = "logit"))
-
-tidy(glm_regage)%>%
-  mutate(exp.est = exp(estimate))%>%
-  select(term, exp.est)
-
-
-```
-
-
+The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{-0.6588634}=0.5174391$, or about a 34% probability. Accounting for age, a person from the west south central region is most likely to prefer rare steak, as this region has the highest exponentiated coefficient of 1.9196. Also, as age increases, the odds of preferring rare steak consistently increase as well when region is held constant.
 
 
 ![Steak!](https://www.tasteofhome.com/wp-content/uploads/2019/01/medium-rare-steak-shutterstock_706040446-800x450.jpg)
@@ -177,8 +143,8 @@ completeFun <- function(data, desiredCols) {  #This function removes rows of dat
   return(data[completeVec, ])
 }
 
-steak_survey_ageincome_NArm <- completeFun(steak_survey, c("age", "hhold_income"))
-anova(glm(steak_prep_rare ~ 1, data = steak_survey_ageincome_NArm, family = binomial(link = "logit")), glm_ageincome) %>%
+steak_survey_income_NArm <- completeFun(steak_survey, "hhold_income")
+anova(glm(steak_prep_rare ~ 1, data = steak_survey_income_NArm, family = binomial(link = "logit")), glm_income) %>%
   tidy()
 ```
 
