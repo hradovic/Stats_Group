@@ -99,11 +99,7 @@ The predicted odds that a person from the east north central region with income 
 
 The predicted odds that a person from the east north central region from age 18-29 prefers rare steak is $e^{0.340476}=1.405617$, or about a 58% probability.
 
-```{r}
-glm_regage %>% 
-  ggplot(aes(x = age, y = steak_prep, color = region)) +
-  geom_jitter()
-```
+
 
 
 # Regression Tables and Analysis
@@ -145,6 +141,13 @@ tidy(glm_regage)%>%
 
 ```
 
+```{r}
+
+glm_regage %>% 
+  ggplot(aes(x = age, y = steak_prep, color = region)) +
+  geom_jitter()
+
+```
 
 
 ![Steak!](https://www.tasteofhome.com/wp-content/uploads/2019/01/medium-rare-steak-shutterstock_706040446-800x450.jpg)
