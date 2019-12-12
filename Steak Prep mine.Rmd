@@ -136,24 +136,39 @@ steak_survey_2 %>%
 
 We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
 
-```{r, echo = FALSE}
+We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
+
+**Model based on age: **
+```{r}
 glm_age <- glm( steak_prep_rare_number ~ age ,data = steak_survey_2, family = binomial(link = "logit")) 
 tidy(glm_age) %>% 
   select(term, estimate) %>% 
   mutate(exp_est = exp(estimate))
+```
 
+From this model, the predicted odds that a person below age 30 prefers rare steak is $e^{-0.35020243}=0.7045$, or a probability of about 41.3%. These odds remain essentially the same for ages 30 - 60, but for people older than 60, they are multiplied by 1.32. Overall, this model shows little effect of age on steak preference, except that people older than 60 are slightly more likely to prefer rare steak.
+
+**Model based on income: **
+```{r}
 glm_income <- glm( steak_prep_rare_number ~hhold_income, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_income) %>% 
   select(term, estimate) %>% 
   mutate(exp_est = exp(estimate))
 
+```
 
+From this model, the predicted odds that a person with income below \$25,000 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the model predicts that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
+
+**Model based on region: **
+```{r}
 glm_region <- glm( steak_prep_rare_number ~ region, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_region) %>% 
   select(term, estimate) %>% 
   mutate(exp_est = exp(estimate))
-
 ```
+
+This model predicts that the odds that a person from the east north central region prefers rare steak is $e^{-0.19671029}=0.8214286$, or a probability of 45%. There is significant variation between regions, with the odds for a person from the mountain region being the least, at $0.8214286 * 0.3873518 = 0.3181818$, while the odds for the west north central region are highest at $0.8214286 * 1.4983278 = 1.230769$.
+
 
 ##### We can conclude three different findings: 
 (@) The odds of people liking rare or medium rare steaks seem to go up with age groups, although the trend is not particularly strong; 
