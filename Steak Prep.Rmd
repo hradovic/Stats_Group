@@ -1,0 +1,173 @@
+---
+title: "Group Project"
+author: "Alex, Christopher, Helen, Yunze"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(fivethirtyeight)
+library(dplyr)
+library(moderndive)
+library(broom)
+```
+
+# Description of Data
+
+steak_survey_2 is a survey of 432 steak eaters in the US. It originally came from a surveymonkey audience poll, an online polling company. 
+
+In this data, we are going to be looking for influences that lead to type of steak consumed. We're interested in looking at this data because we want to see how big a role demographic factors play in the type of food consumed in the US, and if there is more status associated with some methods of cooking steak versus others. Also, we want to see if more risk prone people are more willing to eat rare cooked steak, as this carries the potential for food borne illnesses. 
+
+Research Question: what factor impacts the types of steaks people consume?
+
+Responsive variable: steak_prep
+
+Predictive variables: Region of US, Household Income, Age
+
+# Exploratory graphs and general overview of data:
+
+The following graph gives an overview of how many people eat each type of steak in the US. 
+
+```{r}
+steak_survey %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep, fill = steak_prep) )+
+  xlab("Steak Preparation") +
+      ylab("Consumer Numbers") +
+      ggtitle("Break Down: How People Like Their Steaks")+
+  theme_replace()
+
+```
+
+
+Because all the variables we are looking at are categorical, we have decided to adjsut the data and divide them into two categories, as we intend to run logistic regressions later on. Rare and Medium rare are grouped together as "Relatively Rare", and the rest is grouped together as "Not Rare"
+
+```{r}
+
+steak_survey_2 <-
+  steak_survey %>% 
+  mutate(age = fct_relevel(as.character(age), "> 60", after = Inf),
+         hhold_income = fct_relevel(as.character(hhold_income),
+                                     "$0 - $24,999",
+                                     "$25,000 - $49,999",
+                                     "$50,000 - $99,999"),
+         steak_prep_rare = ifelse(steak_prep %in% c("Rare", "Medium rare"),
+                                    "Relatively Rare", "Not Rare"),
+         steak_prep_rare_number = ifelse(steak_prep %in% c("Rare", "Medium rare"),
+                                    1, 0) ) %>% 
+  drop_na(steak_prep, region,hhold_income,age)
+
+steak_survey_2 %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare, fill = steak_prep_rare) )+
+  xlab("Steak Preparation") +
+      ylab("Consumer Numbers") +
+      ggtitle("Binary Break Down: How People Like Their Steaks")+
+  theme_replace()
+
+
+```
+
+#### Region
+This graph shows the types of steaks consumed by location. From these graphs, there are some notiable variations between regions. Some regions have more people consuming rare and medium rare steaks, including East Souch Central, New England, West North Central and West Souch Central.
+
+```{r}
+steak_survey_2 %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare,, fill = steak_prep_rare)) +
+  facet_wrap(~region) +
+  theme_replace()+
+  xlab("Steak Preparation") +
+      ylab("Region") +
+      ggtitle("How People Like Their Steaks: by region")
+ 
+```
+
+#### Income
+The following graph shows the relationship between type of steak and income. There isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, the differences seem less notable between two income groups: $25,000 - $49,999 and $100,000 - $149,999
+
+```{r}
+steak_survey_2 %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare, fill = steak_prep_rare) )+
+  facet_wrap(~hhold_income)+
+  xlab("Steak Preparation") +
+      ylab("Income") +
+      ggtitle("How People Like Their Steaks: by income")+
+  theme_replace()
+```
+
+#### Age
+Although at every age level, there are more consumers of not rare steaks than those of relatively rare steaks. However, that gap seems to be shrinking as the age group moves up.
+
+```{r}
+steak_survey_2 %>% 
+  ggplot() + 
+  geom_bar(aes(x = steak_prep_rare, , fill = steak_prep_rare) )+
+  facet_wrap(~age)+
+  xlab("Steak Preparation") +
+      ylab("Age") +
+      ggtitle("How People Like Their Steaks: by age")+
+  theme_replace()
+```
+
+# Initial Modelling 
+
+We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
+
+```{r}
+glm_age <- glm( steak_prep_rare_number ~ age ,data = steak_survey_2, family = binomial(link = "logit")) 
+tidy(glm_age) %>% 
+  select(term, estimate) %>% 
+  mutate(exp_est = exp(estimate))
+
+glm_income <- glm( steak_prep_rare_number ~hhold_income, data = steak_survey_2, family = binomial(link = "logit"))
+tidy(glm_income) %>% 
+  select(term, estimate) %>% 
+  mutate(exp_est = exp(estimate))
+
+
+glm_region <- glm( steak_prep_rare_number ~ region, data = steak_survey_2, family = binomial(link = "logit"))
+tidy(glm_region) %>% 
+  select(term, estimate) %>% 
+  mutate(exp_est = exp(estimate))
+
+```
+
+##### We can conclude three different findings: 
+(@) The odds of people liking rare or medium rare steaks seem to go up with age groups, although the trend is not particularly strong; 
+(@) There does not seem to be a consistent relationship between income and how people like their steaks;
+(@) And finally, East Souch Central, West North Central, New England, and West Souch Central seem to have higher odds of liking rare steaks. With the exception of New England, All these regions are in the middle of the country. Perhaps this means that middle America prefer rare steaks more than the rest of the country. 
+
+# Modelling Test 
+In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypohthesis is that each of three predictive variables (age, income, region) does not have an impact on the responsive variable (steak preparation). The alternative hypothesis is that there are impacts. Since, all three models use only categorical variables, we will run AVOVA test for hypothesis testing. 
+
+To do so, we first constrcuted a null model with no predictive variable. 
+
+```{r}
+glm_none <- glm( steak_prep_rare_number ~ 1 ,data = steak_survey_2, family = binomial(link = "logit")) 
+tidy(glm_none) %>% 
+  select(term, estimate) %>% 
+  mutate(exp_est = exp(estimate))
+```
+
+Then we use ANOVA to compare the null model to all three models 
+
+```{r}
+anova(glm_none, glm_age, test="Chisq")%>% tidy()
+
+anova(glm_none, glm_income, test="Chisq")%>% tidy()
+
+anova(glm_none, glm_region, test="Chisq")%>% tidy()
+
+
+```
+
+Unfortunately, all three models we have explored have overwhelmingly high p-values. Thus we can not reject any of the null hypothesis. Thus, even though some indicators (both region and age) the steak preferences of people, we can not affirm the relationship. 
+
+
+
