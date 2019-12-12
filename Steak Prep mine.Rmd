@@ -132,7 +132,7 @@ steak_survey_2 %>%
   theme_replace()
 ```
 
-# Initial Modelling 
+# Initial Modeling 
 
 We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
 
@@ -175,10 +175,10 @@ This model predicts that the odds that a person from the east north central regi
 (@) There does not seem to be a consistent relationship between income and how people like their steaks;
 (@) And finally, East Souch Central, West North Central, New England, and West Souch Central seem to have higher odds of liking rare steaks. With the exception of New England, All these regions are in the middle of the country. Perhaps this means that middle America prefer rare steaks more than the rest of the country. 
 
-# Modelling Test 
-In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypohthesis is that each of three predictive variables (age, income, region) does not have an impact on the responsive variable (steak preparation). The alternative hypothesis is that there are impacts. Since, all three models use only categorical variables, we will run AVOVA test for hypothesis testing. 
+# Modeling Test 
+In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypothesis is that each of three predictive variables (age, income, region) will not have an impact on the responsive variable (steak preparation). The alternative hypothesis is that there are impacts. Since all three models use only categorical variables, we will run AVOVA test for hypothesis testing. 
 
-To do so, we first constrcuted a null model with no predictive variable. 
+To do so, we first constructed a null model with no predictive variable. 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 glm_none <- glm( steak_prep_rare_number ~ 1 ,data = steak_survey_2, family = binomial(link = "logit")) 
@@ -199,14 +199,14 @@ anova(glm_none, glm_region, test="Chisq")%>% tidy()
 
 ```
 
-Unfortunately, all three models we have explored have overwhelmingly high p-values. Thus we can not reject any of the null hypothesis. Thus, even though some indicators (both region and age) the steak preferences of people, we can not affirm the relationship. 
+Unfortunately, all three models we have explored have overwhelmingly high p-values. Thus we can not reject any of the null hypotheses. Even though there were some indicators (both region and age) of the steak preferences of people, we can not affirm the relationship. 
 
 
 # Conclusion
 * Original Question: what factor impacts the types of steaks people consume?
 * The answer: We don't know :( Sometimes Stats is like that!
 * Graphs Overview: 
-  + 1. Age: older people eat proportionatly more rare steak
+  + 1. Age: older people eat proportionately more rare steak
   + 2. Income: No real pattern
   + 3. Region: Central states appear to like rare steak
 * Calculations: The p-values all came back very high
