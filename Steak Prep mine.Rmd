@@ -104,6 +104,8 @@ steak_survey_2 %>%
  
 ```
 
+![U.S. Census Regions](https://www.researchgate.net/profile/Marc_Melaina/publication/319448427/figure/fig4/AS:534137184284673@1504359636871/Figure-ES-9-US-states-and-census-divisions.png)
+
 #### Income
 The following graph shows the relationship between type of steak and income. There isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, the differences seem less notable between two income groups: $25,000 - $49,999 and $100,000 - $149,999
 
