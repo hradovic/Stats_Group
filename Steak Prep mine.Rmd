@@ -61,7 +61,7 @@ steak_survey %>%
 ```
 
 
-Because all the variables we are looking at are categorical, we have decided to adjsut the data and divide them into two categories, as we intend to run logistic regressions later on. Rare and Medium rare are grouped together as "Relatively Rare", and the rest is grouped together as "Not Rare"
+Because all the variables we are looking at are categorical, we decided to adjust the data and divide them into two categories, as we intend to run logistic regressions later on. Rare and Medium rare are grouped together as "Relatively Rare", and the rest is grouped together as "Not Rare"
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -90,7 +90,7 @@ steak_survey_2 %>%
 ```
 
 #### Region
-This graph shows the types of steaks consumed by location. From these graphs, there are some notiable variations between regions. Some regions have more people consuming rare and medium rare steaks, including East Souch Central, New England, West North Central and West Souch Central.
+This graph shows the types of steaks consumed by location. From these graphs, there are some notable variations between regions. Some regions have more people consuming rare and medium rare steaks, including East Souch Central, New England, West North Central and West Souch Central.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey_2 %>% 
@@ -107,7 +107,7 @@ steak_survey_2 %>%
 ![U.S. Census Regions](https://www.researchgate.net/profile/Marc_Melaina/publication/319448427/figure/fig4/AS:534137184284673@1504359636871/Figure-ES-9-US-states-and-census-divisions.png)
 
 #### Income
-The following graph shows the relationship between type of steak and income. There isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, the differences seem less notable between two income groups: $25,000 - $49,999 and $100,000 - $149,999
+The following graph shows the relationship between type of steak and income. There isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium-rare. However, the differences seem less notable between two income groups: $25,000 - $49,999 and $100,000 - $149,999
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey_2 %>% 
@@ -136,9 +136,8 @@ steak_survey_2 %>%
 
 # Initial Modeling 
 
-We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
-
-We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
+We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models the odds are interpreted as the odds for liking relatively rare steaks. 
+ 
 
 **Model based on age: **
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -159,7 +158,7 @@ tidy(glm_income) %>%
 
 ```
 
-From this model, the predicted odds that a person with income below \$25,000 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the model predicts that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
+From this model, the predicted odds that a person with income below \$25,000 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
 
 **Model based on region: **
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -189,7 +188,7 @@ tidy(glm_none) %>%
   mutate(exp_est = exp(estimate))
 ```
 
-Then we use ANOVA to compare the null model to all three models 
+Then we use ANOVA to compare the null model to all three models: 
 
 **Age Model: **
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
