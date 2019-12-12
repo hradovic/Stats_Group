@@ -191,14 +191,18 @@ tidy(glm_none) %>%
 
 Then we use ANOVA to compare the null model to all three models 
 
+**Age Model: **
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 anova(glm_none, glm_age, test="Chisq")%>% tidy()
-
+```
+**Income Model: **
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 anova(glm_none, glm_income, test="Chisq")%>% tidy()
+```
 
+**Region Model: **
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 anova(glm_none, glm_region, test="Chisq")%>% tidy()
-
-
 ```
 
 Unfortunately, all three models we have explored have overwhelmingly high p-values. Thus we can not reject any of the null hypotheses. Even though there were some indicators (both region and age) of the steak preferences of people, we can not affirm the relationship. 
