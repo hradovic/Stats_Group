@@ -139,7 +139,7 @@ We constructed one-variable logistic models with all three variables, and we mut
 We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
 
 **Model based on age: **
-```{r}
+```{r, echo=FALSE}
 glm_age <- glm( steak_prep_rare_number ~ age ,data = steak_survey_2, family = binomial(link = "logit")) 
 tidy(glm_age) %>% 
   select(term, estimate) %>% 
@@ -149,7 +149,7 @@ tidy(glm_age) %>%
 From this model, the predicted odds that a person below age 30 prefers rare steak is $e^{-0.35020243}=0.7045$, or a probability of about 41.3%. These odds remain essentially the same for ages 30 - 60, but for people older than 60, they are multiplied by 1.32. Overall, this model shows little effect of age on steak preference, except that people older than 60 are slightly more likely to prefer rare steak.
 
 **Model based on income: **
-```{r}
+```{r, echo=FALSE}
 glm_income <- glm( steak_prep_rare_number ~hhold_income, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_income) %>% 
   select(term, estimate) %>% 
@@ -160,7 +160,7 @@ tidy(glm_income) %>%
 From this model, the predicted odds that a person with income below \$25,000 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the model predicts that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
 
 **Model based on region: **
-```{r}
+```{r, echo=FALSE}
 glm_region <- glm( steak_prep_rare_number ~ region, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_region) %>% 
   select(term, estimate) %>% 
