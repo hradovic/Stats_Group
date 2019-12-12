@@ -49,7 +49,7 @@ Predictive variables: Region of US, Household Income, Age
 
 The following graph gives an overview of how many people eat each type of steak in the US. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey %>% 
   ggplot() + 
   geom_bar(aes(x = steak_prep, fill = steak_prep) )+
@@ -63,7 +63,7 @@ steak_survey %>%
 
 Because all the variables we are looking at are categorical, we have decided to adjsut the data and divide them into two categories, as we intend to run logistic regressions later on. Rare and Medium rare are grouped together as "Relatively Rare", and the rest is grouped together as "Not Rare"
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 
 steak_survey_2 <-
   steak_survey %>% 
@@ -92,7 +92,7 @@ steak_survey_2 %>%
 #### Region
 This graph shows the types of steaks consumed by location. From these graphs, there are some notiable variations between regions. Some regions have more people consuming rare and medium rare steaks, including East Souch Central, New England, West North Central and West Souch Central.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey_2 %>% 
   ggplot() + 
   geom_bar(aes(x = steak_prep_rare,, fill = steak_prep_rare)) +
@@ -107,7 +107,7 @@ steak_survey_2 %>%
 #### Income
 The following graph shows the relationship between type of steak and income. There isn't a super clear pattern here. Almost all income brackets prefer medium-welldone over rare and medium/rare/ However, the differences seem less notable between two income groups: $25,000 - $49,999 and $100,000 - $149,999
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey_2 %>% 
   ggplot() + 
   geom_bar(aes(x = steak_prep_rare, fill = steak_prep_rare) )+
@@ -121,7 +121,7 @@ steak_survey_2 %>%
 #### Age
 Although at every age level, there are more consumers of not rare steaks than those of relatively rare steaks. However, that gap seems to be shrinking as the age group moves up.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 steak_survey_2 %>% 
   ggplot() + 
   geom_bar(aes(x = steak_prep_rare, , fill = steak_prep_rare) )+
@@ -139,7 +139,7 @@ We constructed one-variable logistic models with all three variables, and we mut
 We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models, the odds are interpreted as the odds for liking relatively rare steaks. 
 
 **Model based on age: **
-```{r, echo=FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 glm_age <- glm( steak_prep_rare_number ~ age ,data = steak_survey_2, family = binomial(link = "logit")) 
 tidy(glm_age) %>% 
   select(term, estimate) %>% 
@@ -149,7 +149,7 @@ tidy(glm_age) %>%
 From this model, the predicted odds that a person below age 30 prefers rare steak is $e^{-0.35020243}=0.7045$, or a probability of about 41.3%. These odds remain essentially the same for ages 30 - 60, but for people older than 60, they are multiplied by 1.32. Overall, this model shows little effect of age on steak preference, except that people older than 60 are slightly more likely to prefer rare steak.
 
 **Model based on income: **
-```{r, echo=FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 glm_income <- glm( steak_prep_rare_number ~hhold_income, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_income) %>% 
   select(term, estimate) %>% 
@@ -160,7 +160,7 @@ tidy(glm_income) %>%
 From this model, the predicted odds that a person with income below \$25,000 prefers rare steak is $e^{-0.5798185}=0.56$, or a probability of about 35.9%. These odds are multiplied by approximately 1.73 for both the \$25,000-49,999 and 100,000-149,999 income brackets. However, for those with incomes over \$150,000, the odds are decreased by a factor of 0.829. This indicates that the model predicts that the wealthiest people are actually less likely to prefer rare steak than the least wealthy.
 
 **Model based on region: **
-```{r, echo=FALSE}
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
 glm_region <- glm( steak_prep_rare_number ~ region, data = steak_survey_2, family = binomial(link = "logit"))
 tidy(glm_region) %>% 
   select(term, estimate) %>% 
@@ -180,7 +180,7 @@ In order to understand how strong these models are for further analysis, we will
 
 To do so, we first constrcuted a null model with no predictive variable. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 glm_none <- glm( steak_prep_rare_number ~ 1 ,data = steak_survey_2, family = binomial(link = "logit")) 
 tidy(glm_none) %>% 
   select(term, estimate) %>% 
@@ -189,7 +189,7 @@ tidy(glm_none) %>%
 
 Then we use ANOVA to compare the null model to all three models 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 anova(glm_none, glm_age, test="Chisq")%>% tidy()
 
 anova(glm_none, glm_income, test="Chisq")%>% tidy()
@@ -202,7 +202,7 @@ anova(glm_none, glm_region, test="Chisq")%>% tidy()
 Unfortunately, all three models we have explored have overwhelmingly high p-values. Thus we can not reject any of the null hypothesis. Thus, even though some indicators (both region and age) the steak preferences of people, we can not affirm the relationship. 
 
 
-Conclusion:
+# Conclusion
 * Original Question: what factor impacts the types of steaks people consume?
 * The answer: We don't know :( Sometimes Stats is like that!
 * Graphs Overview: 
