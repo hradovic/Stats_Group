@@ -173,7 +173,7 @@ This model predicts that the odds that a person from the East North Central regi
 
 
 ##### We can conclude three different findings: 
-(@) The odds of people liking rare or medium rare steaks seem to go up with age groups, although the trend is not particularly strong; 
+(@) The odds of people liking rare or medium rare steaks is about the same for all age groups, except people above 60 who are slightly more likely to prefer it; 
 (@) There does not seem to be a consistent relationship between income and how people like their steaks;
 (@) And finally, East South Central, West North Central, New England, and West South Central seem to have higher odds of liking rare steaks. With the exception of New England, All these regions are in the middle of the country. Perhaps this means that people living in the middle of the U.S. prefer rare steaks more than the rest of the country. 
 
