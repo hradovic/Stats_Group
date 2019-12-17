@@ -139,6 +139,7 @@ steak_survey_2 %>%
 
 We constructed one-variable logistic models with all three variables, and we mutated the data so we can see the odds with the variables. Here we set "not rare" as 0, and "relatively rare" as 1. In other words, in all these models the odds are interpreted as the odds for liking relatively rare steaks. 
  
+ $$ Odds(X) = e^{\beta_0}e^{\beta_1 x_1} e^{\beta_2 x_2} . . . e^{\beta_k x_k}$$
 
 **Model based on age: **
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
