@@ -27,6 +27,7 @@ steak_survey_2 is a survey of 432 steak eaters in the US. It originally came fro
 ### Why this data?
 
 In this data, we are going to be looking for influences that lead to type of steak consumed. 
+
 * Relationship between demographics and food consumption?
 * Is the type of steak consumed associated with a higher status than others?
 * Mix of geography and sociology research
@@ -177,7 +178,7 @@ This model predicts that the odds that a person from the East North Central regi
 (@) And finally, East South Central, West North Central, New England, and West South Central seem to have higher odds of liking rare steaks. With the exception of New England, All these regions are in the middle of the country. Perhaps this means that people living in the middle of the U.S. prefer rare steaks more than the rest of the country. 
 
 # Modeling Test 
-In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypothesis is that each of three predictive variables (age, income, region) will not have an impact on the responsive variable (steak preparation). The alternative hypothesis is that there are impacts. Since all three models use only categorical variables, we will run AVOVA test for hypothesis testing. 
+In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypothesis is that each of three predictive variables (age, income, region) will not have an impact on the response variable (steak preparation). The alternative hypothesis is that there are impacts. Since all three models use only categorical variables, we will run ANOVA tests for hypothesis testing. 
 
 To do so, we first constructed a null model with no predictive variable. 
 

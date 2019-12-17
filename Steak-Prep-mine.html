@@ -1653,7 +1653,12 @@ library(broom)</code></pre>
 </div>
 <div id="why-this-data" class="section level3">
 <h3>Why this data?</h3>
-<p>In this data, we are going to be looking for influences that lead to type of steak consumed. * Relationship between demographics and food consumption? * Is the type of steak consumed associated with a higher status than others? * Mix of geography and sociology research</p>
+<p>In this data, we are going to be looking for influences that lead to type of steak consumed.</p>
+<ul>
+<li>Relationship between demographics and food consumption?</li>
+<li>Is the type of steak consumed associated with a higher status than others?</li>
+<li>Mix of geography and sociology research</li>
+</ul>
 <p>Research Question: what factor impacts the types of steaks people consume?</p>
 <p>Response variable: steak_prep</p>
 <p>Predictive variables: Region of US, Household Income, Age</p>
@@ -1728,7 +1733,7 @@ library(broom)</code></pre>
 </div>
 <div id="modeling-test" class="section level1">
 <h1>Modeling Test</h1>
-<p>In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypothesis is that each of three predictive variables (age, income, region) will not have an impact on the responsive variable (steak preparation). The alternative hypothesis is that there are impacts. Since all three models use only categorical variables, we will run AVOVA test for hypothesis testing.</p>
+<p>In order to understand how strong these models are for further analysis, we will try to do hypothesis testing for all three of them. The null hypothesis is that each of three predictive variables (age, income, region) will not have an impact on the response variable (steak preparation). The alternative hypothesis is that there are impacts. Since all three models use only categorical variables, we will run ANOVA tests for hypothesis testing.</p>
 <p>To do so, we first constructed a null model with no predictive variable.</p>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
